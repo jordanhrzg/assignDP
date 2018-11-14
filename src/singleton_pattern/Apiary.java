@@ -3,10 +3,14 @@ package singleton_pattern;
 import builder_pattern.Beehive;
 import java.util.Vector;
 
-
-public class Apiary {
-    
-    private Vector<Beehive> _hives; 
+/**
+ * Singleton class that creates an apiary containing beehives.
+ * 
+ * Requirements met:
+ * - an apiary can have many beehives in them. Only ever allow one apiary to exist.
+ */
+public class Apiary {   
+    public Vector<Beehive> _hives; 
     
     //make it a singleton
     private static Apiary instance = null;
@@ -23,17 +27,4 @@ public class Apiary {
         }
         return instance;
     }
-    
-    //add hive
-    protected void addHive(Beehive b) {
-        _hives.add(b);
-    }
-    //add hives
-    protected void addHives(Vector<Beehive> hives) {
-        _hives.addAll(hives);
-    }
-    
-    //get hives
-    protected Vector<Beehive> getHives(){ return _hives; }
-
 }

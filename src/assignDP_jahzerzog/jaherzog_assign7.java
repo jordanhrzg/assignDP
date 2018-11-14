@@ -3,41 +3,80 @@ package assignDP_jahzerzog;
 import java.util.Random;
 import java.util.Vector;
 
+import singleton_pattern.Apiary;
 import builder_pattern.Beehive;
 
 /**
- * REQs 4 packages for selected design patterns
- * 
- * apiary - only one, contains many beehives apiary - spawn unlimited beehives
- * 
- * beehive - network of rooms, cannot contain another beehive beehive - only has
- * one species beehive - resting room limits capacity
- * 
- * rooms - capable of spawning bees
- * 
- * bees - can battle each other one dies (beehives cannot command it) one gains
- * dead attributes if queen: new combo species & winning queen gets control of
- * both beehives bees - different species bees - have to rest sometimes, consume
- * food bees - create additional beehive rooms (1 bee 100 ticks or 50 bees 2
- * ticks) bees - actions: drones - look for food warriors - hunt enemies (or
- * rest if needed) queens - spawn egg
- * 
- * species - bonus attribute
- * 
- * end simulation - one active beehive/queen remaining
- * 
- * 
- * 
+ * <h4>REQ SUMMARY:
+ * <ul>
+ *      <li>4 packages for selected design patterns</li>
+ *      <ul>
+ *          <li>done - builder</li>
+ *          <li>done - singleton</li>
+ *      </ul>
+ *      <li>Apiary:</li>
+ *      <ul>
+ *          <li>only one</li>
+ *          <li>contains many beehives</li>
+ *          <li>spawn unlimited beehives</li>
+ *      </ul>
+ *      <li>Beehive:</li>
+ *      <ul>
+ *          <li>network of rooms</li>
+ *          <li>cannot contain another beehive beehive</li>
+ *          <li>only has one species</li>
+ *          <li>resting room limits capacity</li>
+ *      </ul>
+ *      <li>Rooms: capable of spawning bees</li>
+ *      <li>Bees:</li>
+ *      <ul>
+ *          <li>can battle each other:</li>
+ *          <ul>
+ *              <li>loser dies, cannot be commanded by beehive</li>
+ *              <li>winner gains loser's attributes</li>
+ *              <li>if queen battle:</li>
+ *              <ul>
+ *                  <li>both hives become combo species</li>
+ *                  <li>both hives belong to winning queen</li>
+ *              </ul>
+ *          </ul>
+ *          <li>need to rest & consume food</li>
+ *          <li>can dig new beehive rooms</li>
+ *          <li>actions:</li>
+ *          <ul>
+ *              <li>depend on proximity</li>
+ *              <ul>
+ *                  <li>example: near another bee, fight</li>
+ *              </ul>
+ *              <li>accomplished across ticks</li>
+ *              <ul>
+ *                  <li>example: 1 bee = 1 room/100 ticks OR 50 bees = 1 room/2 ticks</li>
+ *              </ul>
+ *              <li>worker-specific:</li>
+ *              <ul>
+ *                  <li>drones: look for food/rest</li>
+ *                  <li>warriors: hunt enemies/rest</li>
+ *                  <li>queens: spawn egg/rest</li>
+ *              </ul>
+ *          </ul>
+ *          <li>have species with bonus attribute(s)</li>
+ *      </ul>
+ *      <li>End Simulation if only one queen remains</li>
+ * </ul>
  * 
  * @author Jordan
- *
  */
+
+//****************************************
+//***********SINGLETON PATTERN************
 
 public class jaherzog_assign7 {
 
     public static void main (final String[] args) {
         //---------------------------------------------------------Builder Pattern
-        Vector<Beehive> testHives = new Vector<Beehive>();  //holds hives built
+        System.out.println("\n************BUILDER PATTERN*************");
+        
+        Vector<Beehive> testHives = new Vector<Beehive>();  //holds built hives
         
         //randomization
         Random rand = new Random();
@@ -54,11 +93,24 @@ public class jaherzog_assign7 {
         }
         
         //Test
-        System.out.printf("BUILDER PATTERN: %d hives were built", testHives.size());
+        System.out.printf("%d hives were built.\n", testHives.size());
         //uncomment to view hives with randomly generated attributes
 //        for (Beehive b : testHives) {
 //            System.out.printf("Hive: \tnumRooms = %d \tspecies = %s\n", b.getNumRooms(), b.getSpecies());
 //        }
+        
+        
+        //-------------------------------------------------------Singleton Pattern
+        System.out.println("\n***********SINGLETON PATTERN************");
+        //create multiple reference points to the singleton
+        Apiary apiary1 = Apiary.getInstance();
+        Apiary apiary2 = Apiary.getInstance();
+        Apiary apiary3 = Apiary.getInstance();
+        
+        apiary1._hives = testHives;
+        System.out.printf("%d hives added to Apiary #1.", apiary1._hives.size());
+        System.out.printf("\nApiary #2 now has %d hives too.", apiary2._hives.size());
+        System.out.printf("\nApiary #3 also has %d hives.\n", apiary3._hives.size());
     }
 
 }
