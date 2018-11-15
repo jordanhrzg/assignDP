@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import singleton_pattern.Apiary;
 import builder_pattern.Beehive;
+import factoryMethod_pattern.*;
 
 /**
  * <h4>REQ SUMMARY:
@@ -111,6 +112,17 @@ public class jaherzog_assign7 {
         System.out.printf("%d hives added to Apiary #1.", apiary1._hives.size());
         System.out.printf("\nApiary #2 now has %d hives too.", apiary2._hives.size());
         System.out.printf("\nApiary #3 also has %d hives.\n", apiary3._hives.size());
+        
+      
+        //------------------------------------------------Abstract Factory Pattern
+        System.out.println("\n********Abstract Factory Pattern********");
+        //use abstract factory to make different bees
+        Bee bee1 = BeeFactory.getBee(new DroneFactory());
+        Bee bee2 = BeeFactory.getBee(new WarriorFactory());
+        Bee bee3 = BeeFactory.getBee(new QueenFactory());
+        
+        System.out.printf("Abstract factory made bee #1 type: %s", bee1.getType());
+        System.out.printf("\nAbstract factory made bee #2 type: %s", bee2.getType());
+        System.out.printf("\nAbstract factory made bee #3 type: %s", bee3.getType());
     }
-
 }
