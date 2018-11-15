@@ -102,7 +102,8 @@ public class jaherzog_assign7 {
         
         
         //-------------------------------------------------------Singleton Pattern
-        System.out.println("\n***********SINGLETON PATTERN************");
+                            //012345678901234567890123456789012345678901234567890123456789
+        System.out.println("\n*********************SINGLETON PATTERN**********************");
         //create multiple reference points to the singleton
         Apiary apiary1 = Apiary.getInstance();
         Apiary apiary2 = Apiary.getInstance();
@@ -115,7 +116,7 @@ public class jaherzog_assign7 {
         
       
         //------------------------------------------------Abstract Factory Pattern
-        System.out.println("\n********Abstract Factory Pattern********");
+        System.out.println("\n******************Abstract Factory Pattern******************");
         //use abstract factory to make different bees
         Bee bee1 = BeeFactory.getBee(new DroneFactory());
         Bee bee2 = BeeFactory.getBee(new WarriorFactory());
@@ -123,6 +124,32 @@ public class jaherzog_assign7 {
         
         System.out.printf("Abstract factory made bee #1 type: %s", bee1.getType());
         System.out.printf("\nAbstract factory made bee #2 type: %s", bee2.getType());
-        System.out.printf("\nAbstract factory made bee #3 type: %s", bee3.getType());
+        System.out.printf("\nAbstract factory made bee #3 type: %s\n", bee3.getType());
+        
+      
+        //-------------------------------------------------------Decorator Pattern
+        System.out.println("\n*********************Decorator Pattern**********************");
+        //use decorator to make bees with different attribute-type combinations
+        decorator_pattern.Bee bee10 = new decorator_pattern.Warrior();
+        decorator_pattern.Bee bee20 = new decorator_pattern.SpeedyBeeDecorator(new decorator_pattern.Queen());
+        decorator_pattern.Bee bee30 = new decorator_pattern.StrongBeeDecorator(new decorator_pattern.Drone());
+        decorator_pattern.Bee bee40 = new decorator_pattern.SpeedyBeeDecorator(new decorator_pattern.StrongBeeDecorator(new decorator_pattern.Drone()));
+        
+        System.out.println("Bee #10:");
+        bee10.getType();
+        System.out.println("\nBee #20:");
+        bee20.getType();
+        System.out.println("\nBee #30:");
+        bee30.getType();
+        System.out.println("\nBee #40:");
+        bee40.getType();
+        
+        System.out.println("\nExplanation:" 
+                              + "\nBee-Type classes implement the Bee class. The BeeDecorator"
+                              + "\nclass implements the Bee class and is extended by different" 
+                              + "\nBee-Attributes (decorations). Thus, Bees can be produced in"
+                              + "\ndifferent attribute-type combinations. Additionally,"
+                              + "\nmultiple attributes can be applied to a Bee");
+        
     }
 }
