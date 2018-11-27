@@ -1,4 +1,4 @@
-### assignDP
+### assignDP - Jordan Herzog jaherzog
 
 This repository is for SER 316 - Fall B 2018 Assignment 7: Design Pattern
 
@@ -28,5 +28,3 @@ The main function of this program runs each of the featured design patterns to d
  - **CheckStyle Violations**: 2
     - violations are due to naming conventions and do not impact functionality.
  - **SpotBugs Violations**: 0
- 
-*This project is currently in edit and not complete*
