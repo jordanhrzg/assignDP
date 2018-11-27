@@ -3,79 +3,30 @@ package assignDP_jahzerzog;
 import java.util.Random;
 import java.util.Vector;
 
-import singleton_pattern.Apiary;
-import builder_pattern.Beehive;
-import factoryMethod_pattern.*;
+import pattern.abstractfactory.Bee;
+import pattern.abstractfactory.BeeFactory;
+import pattern.abstractfactory.DroneFactory;
+import pattern.abstractfactory.QueenFactory;
+import pattern.abstractfactory.WarriorFactory;
+import pattern.builder.Beehive;
+import pattern.singleton.Apiary;
 
 /**
- * <h4>REQ SUMMARY:
- * <ul>
- *      <li>4 packages for selected design patterns</li>
- *      <ul>
- *          <li>done - builder</li>
- *          <li>done - singleton</li>
- *      </ul>
- *      <li>Apiary:</li>
- *      <ul>
- *          <li>only one</li>
- *          <li>contains many beehives</li>
- *          <li>spawn unlimited beehives</li>
- *      </ul>
- *      <li>Beehive:</li>
- *      <ul>
- *          <li>network of rooms</li>
- *          <li>cannot contain another beehive beehive</li>
- *          <li>only has one species</li>
- *          <li>resting room limits capacity</li>
- *      </ul>
- *      <li>Rooms: capable of spawning bees</li>
- *      <li>Bees:</li>
- *      <ul>
- *          <li>can battle each other:</li>
- *          <ul>
- *              <li>loser dies, cannot be commanded by beehive</li>
- *              <li>winner gains loser's attributes</li>
- *              <li>if queen battle:</li>
- *              <ul>
- *                  <li>both hives become combo species</li>
- *                  <li>both hives belong to winning queen</li>
- *              </ul>
- *          </ul>
- *          <li>need to rest & consume food</li>
- *          <li>can dig new beehive rooms</li>
- *          <li>actions:</li>
- *          <ul>
- *              <li>depend on proximity</li>
- *              <ul>
- *                  <li>example: near another bee, fight</li>
- *              </ul>
- *              <li>accomplished across ticks</li>
- *              <ul>
- *                  <li>example: 1 bee = 1 room/100 ticks OR 50 bees = 1 room/2 ticks</li>
- *              </ul>
- *              <li>worker-specific:</li>
- *              <ul>
- *                  <li>drones: look for food/rest</li>
- *                  <li>warriors: hunt enemies/rest</li>
- *                  <li>queens: spawn egg/rest</li>
- *              </ul>
- *          </ul>
- *          <li>have species with bonus attribute(s)</li>
- *      </ul>
- *      <li>End Simulation if only one queen remains</li>
- * </ul>
- * 
- * @author Jordan
+ * A class that demos the design pattern packages included.
+ * @author Jordan Herzog jaherzog
+ * @version 11/26/2018
  */
-
-//****************************************
-//***********SINGLETON PATTERN************
-
 public class jaherzog_assign7 {
-
-    public static void main (final String[] args) {
-        //---------------------------------------------------------Builder Pattern
-        System.out.println("\n************BUILDER PATTERN*************");
+    /**
+     * Main entry point for applictaion.
+     * @param args - command line arguments
+     */
+    public static void main(final String[] args) {
+        //---------------------------------------------------------------------------Builder Pattern
+        System.out.println("\n***********************BUILDER PATTERN**********************"
+                  + "\n\"The builder pattern allows for step-by-step creation of"
+                  + "\ncomplex objects.\" - Go4. This pattern is useful in" 
+                  + "\nsimplifying object creation.");
         
         Vector<Beehive> testHives = new Vector<Beehive>();  //holds built hives
         
@@ -86,7 +37,7 @@ public class jaherzog_assign7 {
         
         //build large number of randomly generated hives 
         int numToBuild = 500;
-        for(int i = 0; i < numToBuild; i++) {
+        for (int i = 0; i < numToBuild; i++) {
             int chosenNumRooms = numRoomsChoices[rand.nextInt(3)];
             String chosenSpecies = speciesChoices[rand.nextInt(3)];
             Beehive hive = new Beehive.Builder(chosenNumRooms).withSpecies(chosenSpecies).build();
@@ -94,62 +45,92 @@ public class jaherzog_assign7 {
         }
         
         //Test
-        System.out.printf("%d hives were built.\n", testHives.size());
-        //uncomment to view hives with randomly generated attributes
-//        for (Beehive b : testHives) {
-//            System.out.printf("Hive: \tnumRooms = %d \tspecies = %s\n", b.getNumRooms(), b.getSpecies());
-//        }
+        System.out.printf("%n%d beehives were built with the beehive builder.%n%n", 
+                testHives.size());
+        System.out.println("Sample (first 10 beehives): ");
+        for (int j = 0; j < 10; j++) {
+            System.out.printf("Hive %d: \t# Rooms = %d \tSpecies = %s%n", 
+                    (j + 1), 
+                    testHives.get(j).getNumRooms(), 
+                    testHives.get(j).getSpecies());
+        }
         
+        System.out.println("\nExplanation: In this implementation, the builder pattern is"
+                          + "\nused to mass produce beehives with different numbers of" 
+                          + "\nrooms and different species of bees (both of which are"
+                          + "\nrandomly determined at runtime as well).");
         
-        //-------------------------------------------------------Singleton Pattern
-                            //012345678901234567890123456789012345678901234567890123456789
-        System.out.println("\n*********************SINGLETON PATTERN**********************");
+        //-------------------------------------------------------------------------Singleton Pattern
+        System.out.println("\n*********************SINGLETON PATTERN**********************" 
+                            + "\n\"The singleton pattern ensures that only one object of a" 
+                            + "\nparticular class is ever created.\" - Go4. This pattern is" 
+                            + "\nuseful in mandating the use of instances with a program.");
+        
         //create multiple reference points to the singleton
-        Apiary apiary1 = Apiary.getInstance();
-        Apiary apiary2 = Apiary.getInstance();
-        Apiary apiary3 = Apiary.getInstance();
+        System.out.println("\nCreating three apiary objects...");
+        final Apiary apiary1 = Apiary.getInstance();
+        final Apiary apiary2 = Apiary.getInstance();
+        final Apiary apiary3 = Apiary.getInstance();   
         
-        apiary1._hives = testHives;
-        System.out.printf("%d hives added to Apiary #1.", apiary1._hives.size());
-        System.out.printf("\nApiary #2 now has %d hives too.", apiary2._hives.size());
-        System.out.printf("\nApiary #3 also has %d hives.\n", apiary3._hives.size());
+        apiary1.hives = testHives;
+        System.out.printf("%nIf %d hives are added to Apiary #1.", apiary1.hives.size());
+        System.out.printf("%nThen, Apiary #2 now has %d hives.", apiary2.hives.size());
+        System.out.printf("%nAnd, Apiary #3 also has %d hives.%n", apiary3.hives.size());
         
-      
-        //------------------------------------------------Abstract Factory Pattern
-        System.out.println("\n******************Abstract Factory Pattern******************");
+        apiary2.hives = new Vector<Beehive>();
+        System.out.printf("%nIf Apiary #2 hives are set to %d.", apiary2.hives.size());
+        System.out.printf("%nThen, Apiary #1 now has %d hives.", apiary1.hives.size());
+        System.out.printf("%nAnd, Apiary #3 also has %d hives.%n", apiary3.hives.size());
+        
+        System.out.println("\nExplanation: With the singleton implementation, all objects"
+                            + "\nare essentially copies of a singular instance and updates to"
+                            + "\none instance are reflected in all other instances.");
+        
+        //------------------------------------------------------------------Abstract Factory Pattern
+        System.out.println("\n******************Abstract Factory Pattern******************"
+                            + "\n\"The abstract factory pattern allows for the creation of"
+                            + "\ngroups of related objects without the requirement of"
+                            + "\nspecifying the exact concrete classes that will be used.\"" 
+                            + "\n- Go4");
         //use abstract factory to make different bees
+        System.out.println("\nCreating 3 generic bees with the abstract factory...");
         Bee bee1 = BeeFactory.getBee(new DroneFactory());
         Bee bee2 = BeeFactory.getBee(new WarriorFactory());
         Bee bee3 = BeeFactory.getBee(new QueenFactory());
         
-        System.out.printf("Abstract factory made bee #1 type: %s", bee1.getType());
-        System.out.printf("\nAbstract factory made bee #2 type: %s", bee2.getType());
-        System.out.printf("\nAbstract factory made bee #3 type: %s\n", bee3.getType());
+        System.out.println("\nThe abstract bee factory made different bee types without" 
+                          + "\nspecifying the concrete class:");
+        System.out.printf("Bee #1 type: %s", bee1.getType());
+        System.out.printf("%nBee #2 type: %s", bee2.getType());
+        System.out.printf("%nBee #3 type: %s%n", bee3.getType());
         
-      
-        //-------------------------------------------------------Decorator Pattern
-        System.out.println("\n*********************Decorator Pattern**********************");
+        System.out.println("\nExplanation: The abstract factory uses concrete bee-type"
+                            + "\nfactories to create bees of the desired type.");
+
+        //-------------------------------------------------------------------------Decorator Pattern
+        System.out.println("\n*********************Decorator Pattern**********************"
+                            + "\n\"The decorator pattern is a design pattern that extends the"
+                            + "\nfunctionality of individual objects by wrapping them with" 
+                            + "\none or more decorator classes.\" - Go4");
+        
         //use decorator to make bees with different attribute-type combinations
-        decorator_pattern.Bee bee10 = new decorator_pattern.Warrior();
-        decorator_pattern.Bee bee20 = new decorator_pattern.SpeedyBeeDecorator(new decorator_pattern.Queen());
-        decorator_pattern.Bee bee30 = new decorator_pattern.StrongBeeDecorator(new decorator_pattern.Drone());
-        decorator_pattern.Bee bee40 = new decorator_pattern.SpeedyBeeDecorator(new decorator_pattern.StrongBeeDecorator(new decorator_pattern.Drone()));
+        System.out.println("\nUsing the decorator to make bees with different attribute-"
+                          + "\ntype combinations...");
+        final pattern.decorator.Bee bee10 = new pattern.decorator.Warrior();
+        final pattern.decorator.Bee bee20 = new pattern.decorator.SpeedyBeeDecorator(
+                new pattern.decorator.Queen());
+        final pattern.decorator.Bee bee30 = new pattern.decorator.StrongBeeDecorator(
+                new pattern.decorator.Drone());
+        final pattern.decorator.Bee bee40 = new pattern.decorator.SpeedyBeeDecorator(
+                new pattern.decorator.StrongBeeDecorator(new pattern.decorator.Drone()));
         
-        System.out.println("Bee #10:");
-        bee10.getType();
-        System.out.println("\nBee #20:");
-        bee20.getType();
-        System.out.println("\nBee #30:");
-        bee30.getType();
-        System.out.println("\nBee #40:");
-        bee40.getType();
+        System.out.println("\nBee #10:\n" + bee10.getType());
+        System.out.println("\nBee #20:\n" + bee20.getType());
+        System.out.println("\nBee #30:\n" + bee30.getType());
+        System.out.println("\nBee #40:\n" + bee40.getType());
         
-        System.out.println("\nExplanation:" 
-                              + "\nBee-Type classes implement the Bee class. The BeeDecorator"
-                              + "\nclass implements the Bee class and is extended by different" 
-                              + "\nBee-Attributes (decorations). Thus, Bees can be produced in"
-                              + "\ndifferent attribute-type combinations. Additionally,"
-                              + "\nmultiple attributes can be applied to a Bee");
-        
+        System.out.println("\nExplanation: This implementation of the decorator pattern"
+                            + "\napplies type and attribute decorators to extend the"
+                            + "\nfunctionality of bee objects.");  
     }
 }

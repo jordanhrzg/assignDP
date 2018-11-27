@@ -1,13 +1,13 @@
-package decorator_pattern;
+package pattern.decorator;
 
-public class BeeDecorator implements Bee{
+public class BeeDecorator implements Bee {
     protected Bee decoratedBee;
     
     public BeeDecorator(Bee decoratedBee) {
         this.decoratedBee = decoratedBee;
     }
     
-    public void getType() {
-        decoratedBee.getType();
+    public String getType() {
+        return decoratedBee.getType();
     }
 }

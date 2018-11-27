@@ -1,10 +1,10 @@
-package factoryMethod_pattern;
+package pattern.abstractfactory;
 
 /**
  * Class for creating a Warrior-Bee factories.
  * @author Jordan
  */
-public class WarriorFactory implements BeeAbstractFactory{
+public class WarriorFactory implements BeeAbstractFactory {
     public WarriorFactory() {}
     
     @Override

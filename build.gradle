@@ -1,0 +1,83 @@
+// The part below needs to be included for Spotbugs
+plugins {
+  id  'com.github.spotbugs' version '1.6.5'
+}
+apply plugin: 'java'
+apply plugin: 'application'
+
+///////////////////////////////////////////////////////////////////////////
+// Definint Main class
+///////////////////////////////////////////////////////////////////////////
+mainClassName = 'assignDP_jahzerzog.jaherzog_assign7'
+
+compileJava.options.encoding = 'UTF-8'
+
+///////////////////////////////////////////////////////////////////////////
+// Repositories and dependencies for code go here
+///////////////////////////////////////////////////////////////////////////
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+    compile 'junit:junit:4.12'
+}
+
+// JAR
+jar {
+	manifest{
+		attributes 'Main-Class': 'assignDP_jahzerzog.jaherzog_assign7'
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////
+// Configure Checkstyle
+///////////////////////////////////////////////////////////////////////////
+apply plugin: 'checkstyle'
+checkstyle {
+  // Keep checkstyle a little quieter
+  ignoreFailures = true
+  showViolations = false
+}
+
+tasks.withType(Checkstyle) {
+  reports {
+    html.enabled = true
+    xml.enabled = false
+  }
+}
+checkstyle {
+    toolVersion = "8.8"
+}
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test'
+        }
+    }
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+// Configure SpotBugs
+///////////////////////////////////////////////////////////////////////////
+
+// The part below needs to be included for Spotbugs
+spotbugs {
+  toolVersion = '3.1.1'
+}
+
+// To generate an HTML report instead of XML
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+  }
+}

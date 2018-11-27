@@ -1,10 +1,10 @@
-package factoryMethod_pattern;
+package pattern.abstractfactory;
 
 /**
  * Class for creating a Queen-Bee factories.
  * @author Jordan
  */
-public class QueenFactory implements BeeAbstractFactory{
+public class QueenFactory implements BeeAbstractFactory {
     public QueenFactory() {}
     
     @Override

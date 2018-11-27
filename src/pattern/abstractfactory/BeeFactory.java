@@ -1,4 +1,4 @@
-package factoryMethod_pattern;
+package pattern.abstractfactory;
 
 /**
  * Class for creating Bee factories.
