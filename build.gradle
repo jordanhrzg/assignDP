@@ -8,7 +8,7 @@ apply plugin: 'application'
 ///////////////////////////////////////////////////////////////////////////
 // Definint Main class
 ///////////////////////////////////////////////////////////////////////////
-mainClassName = 'assignDP_jahzerzog.jaherzog_assign7'
+mainClassName = 'assignDP_jaherzog.jaherzog_assign7'
 
 compileJava.options.encoding = 'UTF-8'
 
@@ -26,7 +26,7 @@ dependencies {
 // JAR
 jar {
 	manifest{
-		attributes 'Main-Class': 'assignDP_jahzerzog.jaherzog_assign7'
+		attributes 'Main-Class': 'assignDP_jaherzog.jaherzog_assign7'
 	}
 }
 

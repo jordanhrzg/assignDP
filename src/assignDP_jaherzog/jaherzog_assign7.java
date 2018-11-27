@@ -1,4 +1,4 @@
-package assignDP_jahzerzog;
+package assignDP_jaherzog;
 
 import java.util.Random;
 import java.util.Vector;

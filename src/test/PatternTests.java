@@ -116,7 +116,7 @@ public class PatternTests {
      */
     @Test
     public void testMain() {
-        assignDP_jahzerzog.jaherzog_assign7 test = new assignDP_jahzerzog.jaherzog_assign7();
+        assignDP_jaherzog.jaherzog_assign7 test = new assignDP_jaherzog.jaherzog_assign7();
         
         String[] testParam = new String[0];
         
